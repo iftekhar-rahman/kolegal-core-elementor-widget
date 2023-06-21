@@ -1,0 +1,70 @@
+/* .service-thumb {
+    height: 460px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-color: #ddd;
+}
+.services-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 30px;
+}
+.single-service-item {
+    position: relative;
+}
+.service-content {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    width: 85%;
+    background-color: #000000bd;
+    padding: 14px 10px 10px 12px;
+}
+.service-content a {
+    color: #fff;
+    display: block;
+}
+.service-content h2 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1em;
+    margin: 0 0 10px;
+}
+.service-content .learn-btn {
+    font-size: 18px;
+    font-weight: 500;
+    color: #FFB853;
+}
+.service-content .learn-btn i {
+    transform: rotate(-45deg);
+    position: relative;
+    bottom: -2px;
+    right: -5px;
+} */
+
+
+/* .services-2-area */
+/* .services-2-area .service-content {
+    position: relative;
+    width: 100%;
+    background-color: #fff;
+    padding: 15px;
+}
+.services-2-area .service-content a {
+    color: #040415;
+}
+.services-2-area .service-content a.learn-btn {
+    color: #FFB853;
+}
+.services-2-area .service-thumb {
+    height: 270px;
+}
+.services-2-area .single-service-item {
+    border: 1px solid #E1E1E3;
+}
+.services-2-area .service-content .d-none {
+    display: block;
+    margin: 0 0 10px;
+} */
