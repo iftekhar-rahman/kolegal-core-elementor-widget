@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class Ko_Legal_Services extends \Elementor\Widget_Base {
+class Ko_Legal_Home_Blog extends \Elementor\Widget_Base {
 
 	/**
 	 * Get widget name.
@@ -24,7 +24,7 @@ class Ko_Legal_Services extends \Elementor\Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'services';
+		return 'home-blog';
 	}
 
 	/**
@@ -37,7 +37,7 @@ class Ko_Legal_Services extends \Elementor\Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return esc_html__( 'Services', 'kolegal-addon' );
+		return esc_html__( 'Home Blog', 'kolegal-addon' );
 	}
 
 	/**
@@ -104,28 +104,11 @@ class Ko_Legal_Services extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'content_section',
 			[
-				'label' => esc_html__( 'Content', 'kolegal-addon' ),
+				'label' => esc_html__( 'Content', 'honestdental-addon' ),
 				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);
 
-
-		$this->add_control(
-			'title_word_limit',
-			[
-				'label' => esc_html__( 'Title Word Limit', 'plugin-name' ),
-				'type' => \Elementor\Controls_Manager::NUMBER,
-				'default' => 8,
-			]
-		);
-		$this->add_control(
-			'content_limit',
-			[
-				'label' => esc_html__( 'Content Limit', 'plugin-name' ),
-				'type' => \Elementor\Controls_Manager::NUMBER,
-				'default' => 10,
-			]
-		);
 		$this->add_control(
 			'post_count',
 			[
@@ -135,8 +118,55 @@ class Ko_Legal_Services extends \Elementor\Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'post_orderby',
+			[
+				'label' => esc_html__( 'Post Order By', 'plugin-name' ),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'default' => 'date',
+				'options' => [
+					'ID'  => esc_html__( 'ID', 'plugin-name' ),
+					'date' => esc_html__( 'Date', 'plugin-name' ),
+					'comment_count' => esc_html__( 'Comment Count', 'plugin-name' ),
+					'author' => esc_html__( 'Author', 'plugin-name' ),
+					'title' => esc_html__( 'Title', 'plugin-name' ),
+					'rand' => esc_html__( 'Rand', 'plugin-name' ),
+				],
+			]
+		);
+
+		$this->add_control(
+			'post_order',
+			[
+				'label' => esc_html__( 'Post Order', 'plugin-name' ),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'options' => [
+					'ASC'  => esc_html__( 'Ascending', 'plugin-name' ),
+					'DESC' => esc_html__( 'Descending', 'plugin-name' ),
+				],
+			]
+		);
+
+		$this->add_control(
+			'title_word_limit',
+			[
+				'label' => esc_html__( 'Title Word Limit', 'plugin-name' ),
+				'type' => \Elementor\Controls_Manager::NUMBER,
+				'default' => 24,
+			]
+		);
+
 
 		$this->end_controls_section();
+
+		// section_style
+		$this->start_controls_section(
+			'section_style',
+			[
+				'label' => esc_html__( 'Style', 'honestdental-addon' ),
+				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
 
 	}
 
@@ -151,22 +181,22 @@ class Ko_Legal_Services extends \Elementor\Widget_Base {
 	protected function render() {
 
 		$settings = $this->get_settings_for_display();
-		$content_limit = $settings['content_limit'];
+
 		$title_word_limit = $settings['title_word_limit'];
 	?>
-	
-	<div class="services-section">
 
-		<?php
+	<div class="enginescale-blog-section grid-container grid-wrapper">
+	<?php
 
 		// The Query
 		$args = array(
-			'post_type' => 'service',
+			'post_type' => 'post',
 			'posts_per_page'      => $settings['post_count'],
 			'post_status' => 'publish',
 			'ignore_sticky_posts' => 1,
-			'orderby' => 'date',
-			'order'   =>  'ASC',
+			'orderby' => $settings['post_orderby'],
+			'order'   =>  $settings['post_order'],
+			'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
 		);
 
 		$the_query = new \WP_Query( $args );
@@ -176,31 +206,29 @@ class Ko_Legal_Services extends \Elementor\Widget_Base {
 				$the_query->the_post();
 				
 				?>
-				<article id="post-<?php the_ID() ;?>" <?php post_class( 'single-service-item' );?>>
-					<?php if( has_post_thumbnail(  ) ): ?>
-					<a href="<?php the_permalink(  ); ?>" class="d-block service-thumb-wrap">
-						<div class="service-thumb" style="background-image: url(<?php  the_post_thumbnail_url('full'); ?>);"></div>
-					</a>
-					<?php endif; ?>
-					<div class="service-content">
-						<a href="<?php the_permalink(  ); ?>" class="d-block">
-							<h2><?php echo wp_trim_words( get_the_title(), $title_word_limit, '' ); ?></h2>
+				<article id="post-<?php the_ID();?>" <?php post_class( 'single-item' );?>>
+					<div class="blog-inner">
+						<a href="<?php the_permalink(  ); ?>" class="d-block blog-thumb-wrap">
+							<div class="blog-thumb" style="background-image: url(<?php  the_post_thumbnail_url('full'); ?>);"></div>
 						</a>
-						<p class="d-none"><?php echo wp_trim_words( get_the_excerpt(), $content_limit, '...' ); ?></p>
-
-						<a href="<?php the_permalink(  ); ?>" class="learn-btn"><?php echo esc_html__( 'Learn More', 'kolegal' ) ?> <i aria-hidden="true" class="fas fa-arrow-right"></i></a>
+						<div class="blog-content">
+							<div>
+								<div class="blog-meta">
+									<p><?php echo get_the_date(); ?></p>
+								</div>
+								<a href="<?php the_permalink(  ); ?>" class="d-block"><h2><?php echo wp_trim_words( get_the_title(), $title_word_limit, '' ); ?></h2></a>
+							</div>
+							<a href="<?php the_permalink(  ); ?>" class="redmore"> <?php echo esc_html__( 'Read more', 'hello-elementor' ) ?> <i class="fas fa-arrow-right"></i></a>
+						</div>
 					</div>
 				</article>
 				<?php
 			}
 		}
 		wp_reset_postdata();
-		?>
-		
-		
-	
+	?>
 	</div>
-	
+
 
 	<?php
 

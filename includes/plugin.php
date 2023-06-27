@@ -213,9 +213,11 @@ final class Plugin {
 	public function my_plugin_frontend_stylesheets() {
 
 		wp_register_style( 'swiper-bundle', plugins_url( '/assets/css/swiper-bundle.min.css', __FILE__ ) );
+		wp_register_style( 'blog-css', plugins_url( '/assets/css/blog.css', __FILE__ ) );
 		wp_register_style( 'common-css', plugins_url( '/assets/css/common.css', __FILE__ ) );
 		
 		wp_enqueue_style( 'swiper-bundle' );
+		wp_enqueue_style( 'blog-css' );
 		wp_enqueue_style( 'common-css' );
 
 	}
@@ -258,11 +260,13 @@ final class Plugin {
 	 */
 	public function register_widgets( $widgets_manager ) {
 
-		require_once( __DIR__ . '/widgets/services.php' );
-		require_once( __DIR__ . '/widgets/success-stories.php' );
+		require_once( __DIR__ . '/widgets/expertise.php' );
+		require_once( __DIR__ . '/widgets/client-stories.php' );
+		require_once( __DIR__ . '/widgets/home-blog.php' );
 
-		$widgets_manager->register( new \Ko_Legal_Addon\Ko_Legal_Services() );
-		$widgets_manager->register( new \Ko_Legal_Addon\Ko_Legal_Success_Stories() );
+		$widgets_manager->register( new \Ko_Legal_Addon\Ko_Legal_Expertise() );
+		$widgets_manager->register( new \Ko_Legal_Addon\Ko_Legal_Client_Stories() );
+		$widgets_manager->register( new \Ko_Legal_Addon\Ko_Legal_Home_Blog() );
 
 	}
 

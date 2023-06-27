@@ -1,0 +1,203 @@
+
+/* Blog */
+.enginescale-blog-section {
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 0px);
+}
+.enginescale-blog-section .single-item  {
+    height: 264px;
+}
+.enginescale-blog-section .single-item:nth-child(1) {
+    grid-row: 2/6;
+	height: 560px
+}
+.enginescale-blog-section .single-item:nth-child(2) {
+    grid-row: 2/4;
+    height: 260px;
+}
+.enginescale-blog-section .single-item:nth-child(3) {
+    grid-row: 4/6;
+    height: 260px;
+}
+.blog-inner {
+    display: flex;
+    height: 100%;
+}
+.blog-inner .blog-content {
+    width: 60%;
+}
+.blog-inner .blog-thumb-wrap {
+    width: 40%;
+}
+/* large box */
+.enginescale-blog-section .single-item:nth-child(1) .blog-inner{
+    display: block;
+}
+.enginescale-blog-section .single-item:nth-child(1) .blog-inner .blog-content, 
+.enginescale-blog-section .single-item:nth-child(1) .blog-inner .blog-thumb-wrap{
+    width: 100%;
+}
+.enginescale-blog-section .single-item:nth-child(1) .blog-inner .blog-thumb-wrap .blog-thumb {
+    height: 340px;
+}
+.enginescale-blog-section .single-item:nth-child(1) .blog-content {
+    justify-content: space-between;
+    height: 220px;
+}
+
+
+.enginescale-blog-section .single-item:nth-child(2) .blog-content h2,
+.enginescale-blog-section .single-item:nth-child(3) .blog-content h2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+            line-clamp: 2; 
+    -webkit-box-orient: vertical;
+}
+
+.d-block{
+    display: block;
+}
+.blog-thumb {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+.enginescale-blog-section {
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    line-height: 24px;
+    font-weight: 400;
+    color: #040415;
+}
+.enginescale-blog-section .blog-content{
+    padding: 20px 20px 30px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.blog-meta {
+    font-size: 12px;
+    color: #1D1D1D;
+    margin-bottom: 8px;
+}
+.blog-meta p {
+    margin: 0 0 -3px;
+}
+.blog-meta strong {
+    font-weight: 600;
+}
+.enginescale-blog-section h2 {
+    font-size: 24px;
+    line-height: 36px;
+    margin: 0px 0 15px;
+}
+.enginescale-blog-section h2, 
+.enginescale-blog-section h2 a,
+.enginescale-blog-section .redmore{
+    color: #1D1D1D;
+}
+.enginescale-blog-section .redmore{
+    font-size: 18px;
+    font-weight: 500;
+    font-family: "DM Sans";
+    margin-top: 10px;
+    display: inline-block;
+}
+.enginescale-blog-section .redmore i {
+    transform: rotate(-45deg);
+    position: relative;
+    bottom: -1px;
+    right: -8px;
+    color: #FFB853;
+}
+.enginescale-blog-section .redmore:hover, 
+.enginescale-blog-section h2:hover{
+    color: #FFB853;
+}
+.enginescale-blog-section .redmore img{
+    margin-left: 5px;
+}
+.blog-thumb-wrap{
+    overflow: hidden;  
+}
+.blog-thumb-wrap .blog-thumb{
+    transition: all .5s ease;  
+    background-color: #ddd;
+}
+.blog-thumb-wrap:hover .blog-thumb{
+    transform: scale(1.1);  
+}
+.enginescale-blog-section .single-item{
+    background-color: #FAFAFA;
+}
+
+
+
+
+
+
+/* page-nav-container  */
+/* .page-nav-container {
+    text-align: center;
+    margin-top: 50px;
+}
+.page-nav-container a, .page-nav-container span {
+    border: 1px solid #040415;
+    background: transparent;
+    color: #040415;
+    border-radius: 3px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 500;
+    display: inline-block;
+    padding: 7px 19px;
+    margin: 4px 2px;
+}
+.page-nav-container a:hover {
+    background-color: #040415;
+    color: #fff;
+}
+.page-nav-container span.current {
+    background-color: #040415;
+    color: #fff;
+} */
+
+
+
+
+
+
+/* Responsive CSS */
+@media (max-width:1024px) {
+   
+
+
+    
+}
+
+/* max-width:768px */
+@media (max-width:768px) {
+    
+    /* .enginescale-blog-section .single-item {
+        display: block;
+        height: auto;
+    } */
+    /* .blog-thumb-wrap .blog-thumb {
+        height: 200px;
+    }
+    .enginescale-blog-section .single-item .blog-thumb-wrap {
+        width: 100%;
+    }
+    .enginescale-blog-section .single-item .blog-content {
+        width: 100%;
+        height: auto;
+    } */
+    /* .post-excerpt {
+        display: none;
+    } */
+
+    
+}

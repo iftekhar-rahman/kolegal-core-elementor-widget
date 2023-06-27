@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class Ko_Legal_Success_Stories extends \Elementor\Widget_Base {
+class Ko_Legal_Expertise extends \Elementor\Widget_Base {
 
 	/**
 	 * Get widget name.
@@ -24,7 +24,7 @@ class Ko_Legal_Success_Stories extends \Elementor\Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'success-stories';
+		return 'expertise';
 	}
 
 	/**
@@ -37,7 +37,7 @@ class Ko_Legal_Success_Stories extends \Elementor\Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return esc_html__( 'Success Stories', 'kolegal-addon' );
+		return esc_html__( 'Expertise', 'kolegal-addon' );
 	}
 
 	/**
@@ -109,18 +109,19 @@ class Ko_Legal_Success_Stories extends \Elementor\Widget_Base {
 			]
 		);
 
+
 		$this->add_control(
 			'title_word_limit',
 			[
-				'label' => esc_html__( 'Title Word Limit', 'kolegal-addon' ),
+				'label' => esc_html__( 'Title Word Limit', 'plugin-name' ),
 				'type' => \Elementor\Controls_Manager::NUMBER,
-				'default' => 10,
+				'default' => 8,
 			]
 		);
 		$this->add_control(
 			'content_limit',
 			[
-				'label' => esc_html__( 'Content Limit', 'kolegal-addon' ),
+				'label' => esc_html__( 'Content Limit', 'plugin-name' ),
 				'type' => \Elementor\Controls_Manager::NUMBER,
 				'default' => 10,
 			]
@@ -128,31 +129,12 @@ class Ko_Legal_Success_Stories extends \Elementor\Widget_Base {
 		$this->add_control(
 			'post_count',
 			[
-				'label' => esc_html__( 'Post Per Page', 'kolegal-addon' ),
+				'label' => esc_html__( 'Post Per Page', 'plugin-name' ),
 				'type' => \Elementor\Controls_Manager::NUMBER,
-				'default' => 3,
+				'default' => 9,
 			]
 		);
-		$this->add_control(
-			'arrow_left',
-			[
-				'label' => esc_html__( 'Arrow Left', 'kolegal-addon' ),
-				'type' => \Elementor\Controls_Manager::MEDIA,
-				'default' => [
-					'url' => \Elementor\Utils::get_placeholder_image_src(),
-				],
-			]
-		);
-		$this->add_control(
-			'arrow_right',
-			[
-				'label' => esc_html__( 'Arrow Right', 'kolegal-addon' ),
-				'type' => \Elementor\Controls_Manager::MEDIA,
-				'default' => [
-					'url' => \Elementor\Utils::get_placeholder_image_src(),
-				],
-			]
-		);
+
 
 		$this->end_controls_section();
 
@@ -172,55 +154,51 @@ class Ko_Legal_Success_Stories extends \Elementor\Widget_Base {
 		$content_limit = $settings['content_limit'];
 		$title_word_limit = $settings['title_word_limit'];
 	?>
+	
+	<div class="services-section">
 
-	<div class="success-story-wrap">
-		<div class="swiper mySwiper">
-			<div class="swiper-wrapper">
-				<?php
+		<?php
 
-				// The Query
-				$args = array(
-					'post_type' => 'success-story',
-					'posts_per_page'      => $settings['post_count'],
-					'post_status' => 'publish',
-					'ignore_sticky_posts' => 1,
-					'orderby' => 'date',
-					'order'   =>  'ASC',
-				);
+		// The Query
+		$args = array(
+			'post_type' => 'expertise',
+			'posts_per_page'      => $settings['post_count'],
+			'post_status' => 'publish',
+			'ignore_sticky_posts' => 1,
+			'orderby' => 'date',
+			'order'   =>  'ASC',
+		);
 
-				$the_query = new \WP_Query( $args );
-				// The Loop
-				if ( $the_query->have_posts() ) {
-					while ( $the_query->have_posts() ) {
-						$the_query->the_post();
-						
-						?>
-						<article id="post-<?php the_ID();?>" <?php post_class( 'swiper-slide single-success-story' );?>>
-							<?php if( has_post_thumbnail(  ) ): ?>
-							<a href="<?php the_permalink(  ); ?>" class="d-block success-story-thumb-wrap">
-								<div class="success-story-thumb" style="background-image: url(<?php  the_post_thumbnail_url('full'); ?>);"></div>
-							</a>
-							<?php endif; ?>
-							<div class="service-content success-story-content">
-								<a href="<?php the_permalink(  ); ?>" class="d-block"><h2><?php echo wp_trim_words( get_the_title(), $title_word_limit, '' ); ?></h2></a>
-								<p><?php echo wp_trim_words( get_the_excerpt(), $content_limit, '...' ); ?></p>
-								<a href="<?php the_permalink(  ); ?>" class="learn-btn"><?php echo esc_html__( 'Read Full Case Study', 'kolegal' ) ?></a>
-							</div>
-						</article>
-						<?php
-					}
-				}
-				wp_reset_postdata();
+		$the_query = new \WP_Query( $args );
+		// The Loop
+		if ( $the_query->have_posts() ) {
+			while ( $the_query->have_posts() ) {
+				$the_query->the_post();
+				
 				?>
-			</div>
-		</div>
-		<div class="swiper-button-next">
-			<img src="<?php echo esc_url($settings['arrow_left']['url']); ?>" alt="">
-		</div>
-    	<div class="swiper-button-prev">
-			<img src="<?php echo esc_url($settings['arrow_right']['url']); ?>" alt="">
-		</div>
+				<article id="post-<?php the_ID() ;?>" <?php post_class( 'single-service-item' );?>>
+					<a href="<?php the_permalink(  ); ?>" class="d-block service-thumb-wrap">
+						<div class="service-thumb" style="background-image: url(<?php  the_post_thumbnail_url('full'); ?>);"></div>
+					</a>
+					<div class="service-content">
+						<a href="<?php the_permalink(  ); ?>" class="d-block">
+							<h2><?php echo wp_trim_words( get_the_title(), $title_word_limit, '' ); ?></h2>
+						</a>
+						<p class="d-none"><?php echo wp_trim_words( get_the_excerpt(), $content_limit, '...' ); ?></p>
+
+						<a href="<?php the_permalink(  ); ?>" class="learn-btn"><?php echo esc_html__( 'Learn More', 'kolegal' ) ?> <i aria-hidden="true" class="fas fa-arrow-right"></i></a>
+					</div>
+				</article>
+				<?php
+			}
+		}
+		wp_reset_postdata();
+		?>
+		
+		
+	
 	</div>
+	
 
 	<?php
 
