@@ -212,13 +212,17 @@ final class Plugin {
 	// To load CSS on all pages
 	public function my_plugin_frontend_stylesheets() {
 
-		wp_register_style( 'swiper-bundle', plugins_url( '/assets/css/swiper-bundle.min.css', __FILE__ ) );
-		wp_register_style( 'blog-css', plugins_url( '/assets/css/blog.css', __FILE__ ) );
-		wp_register_style( 'common-css', plugins_url( '/assets/css/common.css', __FILE__ ) );
-		
-		wp_enqueue_style( 'swiper-bundle' );
-		wp_enqueue_style( 'blog-css' );
-		wp_enqueue_style( 'common-css' );
+wp_register_style( 'swiper-bundle', plugins_url( '/assets/css/swiper-bundle.min.css', __FILE__ ) );
+wp_register_style( 'common-css', plugins_url( '/assets/css/common.css', __FILE__ ) );
+wp_register_style( 'services-css', plugins_url( '/assets/css/services.css', __FILE__ ) );
+wp_register_style( 'clientstory-css', plugins_url( '/assets/css/clientstory.css', __FILE__ ) );
+wp_register_style( 'blog-css', plugins_url( '/assets/css/blog.css', __FILE__ ) );
+
+wp_enqueue_style( 'swiper-bundle' );
+wp_enqueue_style( 'common-css' );
+wp_enqueue_style( 'services-css' );
+wp_enqueue_style( 'clientstory-css' );
+wp_enqueue_style( 'blog-css' );
 
 	}
 
@@ -262,11 +266,19 @@ final class Plugin {
 
 		require_once( __DIR__ . '/widgets/expertise.php' );
 		require_once( __DIR__ . '/widgets/client-stories.php' );
+		require_once( __DIR__ . '/widgets/client-stories2.php' );
 		require_once( __DIR__ . '/widgets/home-blog.php' );
+		// require_once( __DIR__ . '/widgets/related-posts.php' );
+		require_once( __DIR__ . '/widgets/recent-posts.php' );
+		require_once( __DIR__ . '/widgets/free-guides.php' );
 
 		$widgets_manager->register( new \Ko_Legal_Addon\Ko_Legal_Expertise() );
 		$widgets_manager->register( new \Ko_Legal_Addon\Ko_Legal_Client_Stories() );
+		$widgets_manager->register( new \Ko_Legal_Addon\Ko_Legal_Client_Stories2() );
 		$widgets_manager->register( new \Ko_Legal_Addon\Ko_Legal_Home_Blog() );
+		// $widgets_manager->register( new \Ko_Legal_Addon\Ko_Legal_Related_Posts() );
+		$widgets_manager->register( new \Ko_Legal_Addon\Ko_Legal_Recent_Posts() );
+		$widgets_manager->register( new \Ko_Legal_Addon\Ko_Legal_Free_Guides() );
 
 	}
 

@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class Ko_Legal_Client_Stories extends \Elementor\Widget_Base {
+class Ko_Legal_Related_Posts extends \Elementor\Widget_Base {
 
 	/**
 	 * Get widget name.
@@ -24,7 +24,7 @@ class Ko_Legal_Client_Stories extends \Elementor\Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'client-stories';
+		return 'related-posts';
 	}
 
 	/**
@@ -37,7 +37,7 @@ class Ko_Legal_Client_Stories extends \Elementor\Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return esc_html__( 'Client Stories', 'kolegal-addon' );
+		return esc_html__( 'Related Posts', 'kolegal-addon' );
 	}
 
 	/**
@@ -114,7 +114,7 @@ class Ko_Legal_Client_Stories extends \Elementor\Widget_Base {
 			[
 				'label' => esc_html__( 'Title Word Limit', 'kolegal-addon' ),
 				'type' => \Elementor\Controls_Manager::NUMBER,
-				'default' => 10,
+				'default' => 13,
 			]
 		);
 		$this->add_control(
@@ -133,23 +133,51 @@ class Ko_Legal_Client_Stories extends \Elementor\Widget_Base {
 				'default' => 3,
 			]
 		);
+
 		$this->add_control(
-			'arrow_left',
+			'icon_left',
 			[
-				'label' => esc_html__( 'Arrow Left', 'kolegal-addon' ),
-				'type' => \Elementor\Controls_Manager::MEDIA,
+				'label' => esc_html__( 'Icon Left', 'kolegal-addon' ),
+				'type' => \Elementor\Controls_Manager::ICONS,
 				'default' => [
-					'url' => \Elementor\Utils::get_placeholder_image_src(),
+					'value' => 'fas fa-arrow-left',
+					'library' => 'fa-solid',
+				],
+				'recommended' => [
+					'fa-solid' => [
+						'circle',
+						'dot-circle',
+						'square-full',
+					],
+					'fa-regular' => [
+						'circle',
+						'dot-circle',
+						'square-full',
+					],
 				],
 			]
 		);
+
 		$this->add_control(
-			'arrow_right',
+			'icon_right',
 			[
-				'label' => esc_html__( 'Arrow Right', 'kolegal-addon' ),
-				'type' => \Elementor\Controls_Manager::MEDIA,
+				'label' => esc_html__( 'Icon Left', 'kolegal-addon' ),
+				'type' => \Elementor\Controls_Manager::ICONS,
 				'default' => [
-					'url' => \Elementor\Utils::get_placeholder_image_src(),
+					'value' => 'fas fa-arrow-right',
+					'library' => 'fa-solid',
+				],
+				'recommended' => [
+					'fa-solid' => [
+						'circle',
+						'dot-circle',
+						'square-full',
+					],
+					'fa-regular' => [
+						'circle',
+						'dot-circle',
+						'square-full',
+					],
 				],
 			]
 		);
@@ -169,18 +197,17 @@ class Ko_Legal_Client_Stories extends \Elementor\Widget_Base {
 	protected function render() {
 
 		$settings = $this->get_settings_for_display();
-		$content_limit = $settings['content_limit'];
 		$title_word_limit = $settings['title_word_limit'];
 	?>
 
-	<div class="success-story-wrap">
-		<div class="swiper mySwiper">
+	<div class="success-story-wrap recent-posts">
+		<div class="swiper recentPosts">
 			<div class="swiper-wrapper">
 				<?php
 
 				// The Query
 				$args = array(
-					'post_type' => 'client-story',
+					'post_type' => 'post',
 					'posts_per_page'      => $settings['post_count'],
 					'post_status' => 'publish',
 					'ignore_sticky_posts' => 1,
@@ -200,9 +227,11 @@ class Ko_Legal_Client_Stories extends \Elementor\Widget_Base {
 								<div class="success-story-thumb" style="background-image: url(<?php  the_post_thumbnail_url('full'); ?>);"></div>
 							</a>
 							<div class="service-content success-story-content">
+								<div class="blog-meta">
+									<p><?php echo get_the_date(); ?></p>
+								</div>
 								<a href="<?php the_permalink(  ); ?>" class="d-block"><h2><?php echo wp_trim_words( get_the_title(), $title_word_limit, '' ); ?></h2></a>
-								<p><?php echo wp_trim_words( get_the_excerpt(), $content_limit, '...' ); ?></p>
-								<a href="<?php the_permalink(  ); ?>" class="learn-btn"><?php echo esc_html__( 'Read Full Case Study', 'kolegal' ) ?></a>
+								<a href="<?php the_permalink(  ); ?>" class="learn-btn"><?php echo esc_html__( 'Read more', 'kolegal' ) ?> <i class="fas fa-arrow-right"></i></a>
 							</div>
 						</article>
 						<?php
@@ -213,12 +242,15 @@ class Ko_Legal_Client_Stories extends \Elementor\Widget_Base {
 			</div>
 		</div>
 		<div class="swiper-button-next">
-			<img src="<?php echo esc_url($settings['arrow_left']['url']); ?>" alt="">
+			<?php \Elementor\Icons_Manager::render_icon( $settings['icon_left'], [ 'aria-hidden' => 'true' ] ); ?>
 		</div>
     	<div class="swiper-button-prev">
-			<img src="<?php echo esc_url($settings['arrow_right']['url']); ?>" alt="">
+			<?php \Elementor\Icons_Manager::render_icon( $settings['icon_right'], [ 'aria-hidden' => 'true' ] ); ?>
 		</div>
 	</div>
+
+	
+
 
 	<?php
 
