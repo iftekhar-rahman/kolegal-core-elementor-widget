@@ -114,7 +114,7 @@ class Ko_Legal_Home_Blog extends \Elementor\Widget_Base {
 			[
 				'label' => esc_html__( 'Post Per Page', 'plugin-name' ),
 				'type' => \Elementor\Controls_Manager::NUMBER,
-				'default' => 9,
+				'default' => 3,
 			]
 		);
 
@@ -210,16 +210,13 @@ class Ko_Legal_Home_Blog extends \Elementor\Widget_Base {
 					<div class="blog-inner">
 						<a href="<?php the_permalink(  ); ?>" class="d-block blog-thumb-wrap">
 							<div class="blog-thumb" style="background-image: url(<?php  the_post_thumbnail_url('full'); ?>);"></div>
-						</a>
-						<div class="blog-content">
-							<div>
+							<div class="blog-content">
 								<div class="blog-meta">
 									<p><?php echo get_the_date(); ?></p>
 								</div>
-								<a href="<?php the_permalink(  ); ?>" class="d-block"><h2><?php echo wp_trim_words( get_the_title(), $title_word_limit, '' ); ?></h2></a>
+								<h2><?php echo wp_trim_words( get_the_title(), $title_word_limit, '' ); ?></h2>
 							</div>
-							<a href="<?php the_permalink(  ); ?>" class="redmore"> <?php echo esc_html__( 'Read more', 'hello-elementor' ) ?> <i class="fas fa-arrow-right"></i></a>
-						</div>
+						</a>
 					</div>
 				</article>
 				<?php

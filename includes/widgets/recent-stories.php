@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class Ko_Legal_Free_Guides extends \Elementor\Widget_Base {
+class Ko_Legal_Recent_Stories extends \Elementor\Widget_Base {
 
 	/**
 	 * Get widget name.
@@ -24,7 +24,7 @@ class Ko_Legal_Free_Guides extends \Elementor\Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'free-guides';
+		return 'recent-stories';
 	}
 
 	/**
@@ -37,7 +37,7 @@ class Ko_Legal_Free_Guides extends \Elementor\Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return esc_html__( 'Free Guides', 'kolegal-addon' );
+		return esc_html__( 'Recent Stories', 'kolegal-addon' );
 	}
 
 	/**
@@ -104,78 +104,78 @@ class Ko_Legal_Free_Guides extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'content_section',
 			[
-				'label' => esc_html__( 'Content', 'honestdental-addon' ),
+				'label' => esc_html__( 'Content', 'kolegal-addon' ),
 				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
-			]
-		);
-
-		$this->add_control(
-			'post_count',
-			[
-				'label' => esc_html__( 'Post Per Page', 'plugin-name' ),
-				'type' => \Elementor\Controls_Manager::NUMBER,
-				'default' => 9,
-			]
-		);
-
-		$this->add_control(
-			'post_orderby',
-			[
-				'label' => esc_html__( 'Post Order By', 'plugin-name' ),
-				'type' => \Elementor\Controls_Manager::SELECT,
-				'default' => 'date',
-				'options' => [
-					'ID'  => esc_html__( 'ID', 'plugin-name' ),
-					'date' => esc_html__( 'Date', 'plugin-name' ),
-					'comment_count' => esc_html__( 'Comment Count', 'plugin-name' ),
-					'author' => esc_html__( 'Author', 'plugin-name' ),
-					'title' => esc_html__( 'Title', 'plugin-name' ),
-					'rand' => esc_html__( 'Rand', 'plugin-name' ),
-				],
-			]
-		);
-
-		$this->add_control(
-			'post_order',
-			[
-				'label' => esc_html__( 'Post Order', 'plugin-name' ),
-				'type' => \Elementor\Controls_Manager::SELECT,
-				'options' => [
-					'ASC'  => esc_html__( 'Ascending', 'plugin-name' ),
-					'DESC' => esc_html__( 'Descending', 'plugin-name' ),
-				],
 			]
 		);
 
 		$this->add_control(
 			'title_word_limit',
 			[
-				'label' => esc_html__( 'Title Word Limit', 'plugin-name' ),
+				'label' => esc_html__( 'Title Word Limit', 'kolegal-addon' ),
 				'type' => \Elementor\Controls_Manager::NUMBER,
-				'default' => 24,
+				'default' => 8,
 			]
 		);
-
-        $this->add_control(
-			'content_limit',
+		
+		$this->add_control(
+			'post_count',
 			[
-				'label' => esc_html__( 'Content Limit', 'kolegal-addon' ),
+				'label' => esc_html__( 'Post Per Page', 'kolegal-addon' ),
 				'type' => \Elementor\Controls_Manager::NUMBER,
-				'default' => 10,
+				'default' => 9,
 			]
 		);
 
+		// $this->add_control(
+		// 	'icon_left',
+		// 	[
+		// 		'label' => esc_html__( 'Icon Left', 'kolegal-addon' ),
+		// 		'type' => \Elementor\Controls_Manager::ICONS,
+		// 		'default' => [
+		// 			'value' => 'fas fa-arrow-left',
+		// 			'library' => 'fa-solid',
+		// 		],
+		// 		'recommended' => [
+		// 			'fa-solid' => [
+		// 				'circle',
+		// 				'dot-circle',
+		// 				'square-full',
+		// 			],
+		// 			'fa-regular' => [
+		// 				'circle',
+		// 				'dot-circle',
+		// 				'square-full',
+		// 			],
+		// 		],
+		// 	]
+		// );
+
+		// $this->add_control(
+		// 	'icon_right',
+		// 	[
+		// 		'label' => esc_html__( 'Icon Left', 'kolegal-addon' ),
+		// 		'type' => \Elementor\Controls_Manager::ICONS,
+		// 		'default' => [
+		// 			'value' => 'fas fa-arrow-right',
+		// 			'library' => 'fa-solid',
+		// 		],
+		// 		'recommended' => [
+		// 			'fa-solid' => [
+		// 				'circle',
+		// 				'dot-circle',
+		// 				'square-full',
+		// 			],
+		// 			'fa-regular' => [
+		// 				'circle',
+		// 				'dot-circle',
+		// 				'square-full',
+		// 			],
+		// 		],
+		// 	]
+		// );
 
 		$this->end_controls_section();
-
-		// section_style
-		$this->start_controls_section(
-			'section_style',
-			[
-				'label' => esc_html__( 'Style', 'honestdental-addon' ),
-				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
-			]
-		);
 
 	}
 
@@ -190,23 +190,20 @@ class Ko_Legal_Free_Guides extends \Elementor\Widget_Base {
 	protected function render() {
 
 		$settings = $this->get_settings_for_display();
-
 		$title_word_limit = $settings['title_word_limit'];
-        $content_limit = $settings['content_limit'];
 	?>
 
-	<div class="free-guides-wapper">
-	<?php
+	<div class="recent-posts-area">
+		<?php
 
 		// The Query
 		$args = array(
-			'post_type' => 'free-guide',
+			'post_type' => 'client-stories',
 			'posts_per_page'      => $settings['post_count'],
 			'post_status' => 'publish',
 			'ignore_sticky_posts' => 1,
-			'orderby' => $settings['post_orderby'],
-			'order'   =>  $settings['post_order'],
-			'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
+			'orderby' => 'date',
+			'order'   =>  'DESC',
 		);
 
 		$the_query = new \WP_Query( $args );
@@ -216,21 +213,25 @@ class Ko_Legal_Free_Guides extends \Elementor\Widget_Base {
 				$the_query->the_post();
 				
 				?>
-				<article id="post-<?php the_ID();?>" <?php post_class( 'single-free-guide-item' );?>>
-                    <a href="<?php the_permalink(  ); ?>" class="d-block free-guide-thumb-wrap">
-                        <div class="free-guide-thumb" style="background-image: url(<?php  the_post_thumbnail_url('full'); ?>);"></div>
-                    </a>
-					<div class="blog-content">
-                        <a href="<?php the_permalink(  ); ?>" class="d-block"><h2><?php echo wp_trim_words( get_the_title(), $title_word_limit, '' ); ?></h2></a>
-						<p><?php echo wp_trim_words( get_the_excerpt(), $content_limit, '...' ); ?></p>
+				<article id="post-<?php the_ID();?>" <?php post_class( 'single-recent-post' );?>>
+					<a href="<?php the_permalink(  ); ?>" class="d-block">
+						<div class="recent-post-thumb" style="background-image: url(<?php  the_post_thumbnail_url('full'); ?>);"></div>
+					</a>
+					<div class="recent-post-content">
+						<div class="blog-meta">
+							<p><?php echo get_the_date(); ?></p>
+						</div>
+						<a href="<?php the_permalink(  ); ?>" class="d-block"><h2><?php echo wp_trim_words( get_the_title(), $title_word_limit, '' ); ?></h2></a>
 					</div>
 				</article>
 				<?php
 			}
 		}
 		wp_reset_postdata();
-	?>
+		?>
 	</div>
+
+	
 
 
 	<?php

@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class Ko_Legal_Recent_Posts extends \Elementor\Widget_Base {
+class Ko_Legal_Flip_Categories extends \Elementor\Widget_Base {
 
 	/**
 	 * Get widget name.
@@ -24,7 +24,7 @@ class Ko_Legal_Recent_Posts extends \Elementor\Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'recent-posts';
+		return 'flip-categories';
 	}
 
 	/**
@@ -37,7 +37,7 @@ class Ko_Legal_Recent_Posts extends \Elementor\Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return esc_html__( 'Recent Posts', 'kolegal-addon' );
+		return esc_html__( 'Flip Categories', 'kolegal-addon' );
 	}
 
 	/**
@@ -117,39 +117,46 @@ class Ko_Legal_Recent_Posts extends \Elementor\Widget_Base {
 				'default' => 8,
 			]
 		);
-		
+		// $this->add_control(
+		// 	'content_limit',
+		// 	[
+		// 		'label' => esc_html__( 'Content Limit', 'kolegal-addon' ),
+		// 		'type' => \Elementor\Controls_Manager::NUMBER,
+		// 		'default' => 10,
+		// 	]
+		// );
 		$this->add_control(
 			'post_count',
 			[
 				'label' => esc_html__( 'Post Per Page', 'kolegal-addon' ),
 				'type' => \Elementor\Controls_Manager::NUMBER,
-				'default' => 9,
+				'default' => 6,
 			]
 		);
 
-		// $this->add_control(
-		// 	'icon_left',
-		// 	[
-		// 		'label' => esc_html__( 'Icon Left', 'kolegal-addon' ),
-		// 		'type' => \Elementor\Controls_Manager::ICONS,
-		// 		'default' => [
-		// 			'value' => 'fas fa-arrow-left',
-		// 			'library' => 'fa-solid',
-		// 		],
-		// 		'recommended' => [
-		// 			'fa-solid' => [
-		// 				'circle',
-		// 				'dot-circle',
-		// 				'square-full',
-		// 			],
-		// 			'fa-regular' => [
-		// 				'circle',
-		// 				'dot-circle',
-		// 				'square-full',
-		// 			],
-		// 		],
-		// 	]
-		// );
+		$this->add_control(
+			'icon_left',
+			[
+				'label' => esc_html__( 'Icon Left', 'kolegal-addon' ),
+				'type' => \Elementor\Controls_Manager::ICONS,
+				'default' => [
+					'value' => 'fas fa-arrow-left',
+					'library' => 'fa-solid',
+				],
+				'recommended' => [
+					'fa-solid' => [
+						'circle',
+						'dot-circle',
+						'square-full',
+					],
+					'fa-regular' => [
+						'circle',
+						'dot-circle',
+						'square-full',
+					],
+				],
+			]
+		);
 
 		// $this->add_control(
 		// 	'icon_right',
@@ -193,7 +200,7 @@ class Ko_Legal_Recent_Posts extends \Elementor\Widget_Base {
 		$title_word_limit = $settings['title_word_limit'];
 	?>
 
-	<div class="recent-posts-area">
+	<div class="flip-box-wrap flip-categories">
 		<?php
 
 		// The Query
@@ -213,17 +220,25 @@ class Ko_Legal_Recent_Posts extends \Elementor\Widget_Base {
 				$the_query->the_post();
 				
 				?>
-				<article id="post-<?php the_ID();?>" <?php post_class( 'single-recent-post' );?>>
-					<a href="<?php the_permalink(  ); ?>" class="d-block">
-						<div class="recent-post-thumb" style="background-image: url(<?php  the_post_thumbnail_url('full'); ?>);"></div>
-					</a>
-					<div class="recent-post-content">
-						<div class="blog-meta">
-							<p><?php echo get_the_date(); ?></p>
-						</div>
-						<a href="<?php the_permalink(  ); ?>" class="d-block"><h2><?php echo wp_trim_words( get_the_title(), $title_word_limit, '' ); ?></h2></a>
-					</div>
-				</article>
+				
+
+				<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+  <div class="flipper">
+    <div class="front">
+      <span class="name">David Walsh</span>
+    </div>
+    <div class="back">
+      <div class="back-logo"></div>
+      <div class="back-title">@davidwalshblog</div>
+      <p>Mozilla Web Developer, MooTools & jQuery Consultant, MooTools Core Developer, Javascript Fanatic, CSS Tinkerer, PHP Hacker, and web lover.</p>
+    </div>
+  </div>
+</div>
+      	
+
+		
+
+				
 				<?php
 			}
 		}

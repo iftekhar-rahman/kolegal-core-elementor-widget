@@ -16,16 +16,21 @@
     background: transparent;
     color: #fff;
     padding: 0px 30px 30px 30px;
-    bottom: -60px;
+    /* bottom: -60px; */
     transition: all .5s ease;
+}
+.success-story-wrap .single-success-story .service-content h2{
+    font-size: 32px;
+    margin-bottom: 24px;
+    font-weight: 600;
 }
 .success-story-wrap .single-success-story .service-content .learn-btn {
     color: #fff;
     background-color: #000;
     display: inline-block;
     padding: 10px 20px;
-    opacity: 0;
-    visibility: hidden;
+    /* opacity: 0;
+    visibility: hidden; */
     transition: all .5s ease;
 }
 .success-story-wrap .single-success-story:hover  .service-content{
@@ -50,41 +55,66 @@
     opacity: .9;
     background: rgb(0,0,0);
     background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 80%);
+    transition: all .5s ease;
 }
 .success-story-wrap .single-success-story:hover:after{
     background: rgb(0,0,0);
     background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0, 0, 0, 0.736) 80%);
-    transition: all .5s ease;
+    /* transition: all .5s ease; */
+    opacity: 0;
 }
-.success-story-wrap .swiper-button-next::after, .success-story-wrap  .swiper-button-prev::after {
+/* swiper-button */
+.success-story-wrap .swiper-button-next::after, 
+.success-story-wrap  .swiper-button-prev::after, 
+.swiper-button-next-testi::after, 
+.swiper-button-prev-testi::after
+{
     content: "";
 }
-.success-story-wrap .swiper-button-prev, .success-story-wrap  .swiper-button-next {
+.success-story-wrap .swiper-button-prev, 
+.success-story-wrap  .swiper-button-next,
+.swiper-button-prev-testi,
+.swiper-button-next-testi
+{
     background-image: none;
     background-size: contain;
     width: 40px;
 }
-.success-story-wrap .swiper-button-prev, .success-story-wrap .swiper-button-next {
+.success-story-wrap .swiper-button-prev, 
+.success-story-wrap .swiper-button-next, 
+.swiper-button-next-testi, 
+.swiper-button-prev-testi 
+{
     background-color: #fff;
     border: 1px solid #000;
-    border-radius: 50px;
+    /* border-radius: 50px; */
     height: 54px;
-    width: 96px;
+    width: 54px;
+    text-align: center;
+    font-size: 25px;
+    line-height: 54px;
 }
-.swiper-button-prev:hover, .swiper-button-next:hover {
+.swiper-button-prev:hover, 
+.swiper-button-next:hover, 
+.swiper-button-next-testi:hover,
+.swiper-button-prev-testi:hover
+{
     background-color: #FFB853;
     border-color: #FFB853;
 }
 .success-story-wrap .swiper-button-prev:hover img, 
-.success-story-wrap  .swiper-button-next:hover img {
+.success-story-wrap  .swiper-button-next:hover img, 
+.swiper-button-next-testi:hover img, 
+.swiper-button-prev-testi:hover img 
+{
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
 }
-.success-story-wrap .swiper-button-prev {
-    left: -45px;
+.success-story-wrap .swiper-button-prev, .swiper-button-prev-testi {
+    left: -30px;
 }
-.success-story-wrap .swiper-button-next {
-    right: -45px;
+.success-story-wrap .swiper-button-next, .swiper-button-next-testi {
+    right: -30px;
 }
 
 
@@ -107,11 +137,14 @@
 @media (max-width: 1450px){
 	
 	.success-story-wrap .swiper-button-prev {
-		left: -15px;
+		left: -10px;
 	}
 	.success-story-wrap .swiper-button-next {
-		right: -15px;
+		right: -10px;
 	}
+    .success-story-wrap .swiper-button-prev, .success-story-wrap .swiper-button-next{
+        width: 40px;
+    }
 	
 }
 
@@ -121,9 +154,11 @@
 
     .success-story-wrap .swiper-button-prev {
 		left: 5px;
+        display: none;
 	}
 	.success-story-wrap .swiper-button-next {
 		right: 5px;
+        display: none;
 	}
 
 }
@@ -131,11 +166,18 @@
 @media (max-width: 1024px){
 	
 
-	.success-story-wrap .swiper-button-prev, .success-story-wrap .swiper-button-next {
+	.success-story-wrap .swiper-button-prev, 
+    .success-story-wrap .swiper-button-next,
+    .swiper-button-next-testi, 
+    .swiper-button-prev-testi {
         height: 40px;
         width: 70px;
+        line-height: 40px !important;
     }
-    .success-story-wrap .swiper-button-prev img, .success-story-wrap .swiper-button-next img {
+    .success-story-wrap .swiper-button-prev img, 
+    .success-story-wrap .swiper-button-next img,
+    .swiper-button-next-testi img, 
+    .swiper-button-prev-testi img{
         max-width: 30px;
     }
     .success-story-wrap .swiper-button-prev {
@@ -144,6 +186,8 @@
 	.success-story-wrap .swiper-button-next {
 		right: 5px;
 	}
+
+   
 	
 }
 
@@ -171,6 +215,9 @@
     }
     .success-story-wrap.client-story-2 .single-success-story .service-content{
         bottom: 0;
+    }
+    .testimonials-wrap .content-wrap{
+        height: auto;
     }
 	
 }

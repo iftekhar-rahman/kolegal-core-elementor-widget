@@ -117,14 +117,14 @@ class Ko_Legal_Client_Stories extends \Elementor\Widget_Base {
 				'default' => 10,
 			]
 		);
-		$this->add_control(
-			'content_limit',
-			[
-				'label' => esc_html__( 'Content Limit', 'kolegal-addon' ),
-				'type' => \Elementor\Controls_Manager::NUMBER,
-				'default' => 10,
-			]
-		);
+		// $this->add_control(
+		// 	'content_limit',
+		// 	[
+		// 		'label' => esc_html__( 'Content Limit', 'kolegal-addon' ),
+		// 		'type' => \Elementor\Controls_Manager::NUMBER,
+		// 		'default' => 10,
+		// 	]
+		// );
 		$this->add_control(
 			'post_count',
 			[
@@ -169,7 +169,7 @@ class Ko_Legal_Client_Stories extends \Elementor\Widget_Base {
 	protected function render() {
 
 		$settings = $this->get_settings_for_display();
-		$content_limit = $settings['content_limit'];
+		// $content_limit = $settings['content_limit'];
 		$title_word_limit = $settings['title_word_limit'];
 	?>
 
@@ -201,7 +201,7 @@ class Ko_Legal_Client_Stories extends \Elementor\Widget_Base {
 							</a>
 							<div class="service-content success-story-content">
 								<a href="<?php the_permalink(  ); ?>" class="d-block"><h2><?php echo wp_trim_words( get_the_title(), $title_word_limit, '' ); ?></h2></a>
-								<p><?php echo wp_trim_words( get_the_excerpt(), $content_limit, '...' ); ?></p>
+								<!-- <p><?php //echo wp_trim_words( get_the_excerpt(), $content_limit, '...' ); ?></p> -->
 								<a href="<?php the_permalink(  ); ?>" class="learn-btn"><?php echo esc_html__( 'Read Full Case Study', 'kolegal' ) ?></a>
 							</div>
 						</article>
@@ -213,10 +213,12 @@ class Ko_Legal_Client_Stories extends \Elementor\Widget_Base {
 			</div>
 		</div>
 		<div class="swiper-button-next">
-			<img src="<?php echo esc_url($settings['arrow_left']['url']); ?>" alt="">
+			<i class="fa fa-angle-right"></i>
+			<img src="<?php //echo esc_url($settings['arrow_left']['url']); ?>" alt="">
 		</div>
     	<div class="swiper-button-prev">
-			<img src="<?php echo esc_url($settings['arrow_right']['url']); ?>" alt="">
+			<img src="<?php //echo esc_url($settings['arrow_right']['url']); ?>" alt="">
+			<i class="fa fa-angle-left"></i>
 		</div>
 	</div>
 

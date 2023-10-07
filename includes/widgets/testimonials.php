@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class Ko_Legal_Related_Posts extends \Elementor\Widget_Base {
+class Ko_Legal_Testimonials extends \Elementor\Widget_Base {
 
 	/**
 	 * Get widget name.
@@ -24,7 +24,7 @@ class Ko_Legal_Related_Posts extends \Elementor\Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'related-posts';
+		return 'Testimonials';
 	}
 
 	/**
@@ -37,7 +37,7 @@ class Ko_Legal_Related_Posts extends \Elementor\Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return esc_html__( 'Related Posts', 'kolegal-addon' );
+		return esc_html__( 'Testimonials', 'kolegal-addon' );
 	}
 
 	/**
@@ -114,7 +114,7 @@ class Ko_Legal_Related_Posts extends \Elementor\Widget_Base {
 			[
 				'label' => esc_html__( 'Title Word Limit', 'kolegal-addon' ),
 				'type' => \Elementor\Controls_Manager::NUMBER,
-				'default' => 8,
+				'default' => 10,
 			]
 		);
 		$this->add_control(
@@ -130,54 +130,26 @@ class Ko_Legal_Related_Posts extends \Elementor\Widget_Base {
 			[
 				'label' => esc_html__( 'Post Per Page', 'kolegal-addon' ),
 				'type' => \Elementor\Controls_Manager::NUMBER,
-				'default' => 6,
+				'default' => 3,
 			]
 		);
-
 		$this->add_control(
-			'icon_left',
+			'arrow_left',
 			[
-				'label' => esc_html__( 'Icon Left', 'kolegal-addon' ),
-				'type' => \Elementor\Controls_Manager::ICONS,
+				'label' => esc_html__( 'Arrow Left', 'kolegal-addon' ),
+				'type' => \Elementor\Controls_Manager::MEDIA,
 				'default' => [
-					'value' => 'fas fa-arrow-left',
-					'library' => 'fa-solid',
-				],
-				'recommended' => [
-					'fa-solid' => [
-						'circle',
-						'dot-circle',
-						'square-full',
-					],
-					'fa-regular' => [
-						'circle',
-						'dot-circle',
-						'square-full',
-					],
+					'url' => \Elementor\Utils::get_placeholder_image_src(),
 				],
 			]
 		);
-
 		$this->add_control(
-			'icon_right',
+			'arrow_right',
 			[
-				'label' => esc_html__( 'Icon Left', 'kolegal-addon' ),
-				'type' => \Elementor\Controls_Manager::ICONS,
+				'label' => esc_html__( 'Arrow Right', 'kolegal-addon' ),
+				'type' => \Elementor\Controls_Manager::MEDIA,
 				'default' => [
-					'value' => 'fas fa-arrow-right',
-					'library' => 'fa-solid',
-				],
-				'recommended' => [
-					'fa-solid' => [
-						'circle',
-						'dot-circle',
-						'square-full',
-					],
-					'fa-regular' => [
-						'circle',
-						'dot-circle',
-						'square-full',
-					],
+					'url' => \Elementor\Utils::get_placeholder_image_src(),
 				],
 			]
 		);
@@ -197,17 +169,18 @@ class Ko_Legal_Related_Posts extends \Elementor\Widget_Base {
 	protected function render() {
 
 		$settings = $this->get_settings_for_display();
+		$content_limit = $settings['content_limit'];
 		$title_word_limit = $settings['title_word_limit'];
 	?>
 
-	<div class="success-story-wrap recent-posts related-posts">
-		<div class="swiper recentPosts">
+	<div class="testimonials-wrap">
+		<div class="swiper testimonials">
 			<div class="swiper-wrapper">
 				<?php
 
 				// The Query
 				$args = array(
-					'post_type' => 'post',
+					'post_type' => 'testimonial',
 					'posts_per_page'      => $settings['post_count'],
 					'post_status' => 'publish',
 					'ignore_sticky_posts' => 1,
@@ -222,16 +195,29 @@ class Ko_Legal_Related_Posts extends \Elementor\Widget_Base {
 						$the_query->the_post();
 						
 						?>
-						<article id="post-<?php the_ID();?>" <?php post_class( 'swiper-slide single-success-story' );?>>
-							<a href="<?php the_permalink(  ); ?>" class="d-block success-story-thumb-wrap">
-								<div class="success-story-thumb" style="background-image: url(<?php  the_post_thumbnail_url('full'); ?>);"></div>
-							</a>
-							<div class="service-content success-story-content">
-								<div class="blog-meta">
-									<p><?php echo get_the_date(); ?></p>
+						<article id="post-<?php the_ID();?>" <?php post_class( 'swiper-slide single-testimonial' );?>>
+							<div class="single-slide-inner">
+								<div style="display: none;" class="testimonial-author">
+									<img src="<?php the_post_thumbnail_url( 'thumbnail' ); ?>" alt="">
 								</div>
-								<a href="<?php the_permalink(  ); ?>" class="d-block"><h2><?php echo wp_trim_words( get_the_title(), $title_word_limit, '' ); ?></h2></a>
-								<a href="<?php the_permalink(  ); ?>" class="learn-btn"><?php echo esc_html__( 'Read more', 'kolegal' ) ?> <i class="fas fa-arrow-right"></i></a>
+								<div class="content-wrap">
+									<i aria-hidden="true" class="icon icon-quote left-icon"></i>
+									<?php the_field('client_review_text'); ?>
+									<i aria-hidden="true" class="icon icon-quote right-icon"></i>
+								</div>
+								<div class="testimonial-footer">
+									<div class="author-detail">
+										<h4><?php the_field('reviewer_name'); ?></h4>
+										<span><?php the_field('reviewer_designation'); ?></span>
+									</div>
+									<div class="stars">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+									</div>
+								</div>
 							</div>
 						</article>
 						<?php
@@ -241,16 +227,15 @@ class Ko_Legal_Related_Posts extends \Elementor\Widget_Base {
 				?>
 			</div>
 		</div>
-		<div class="swiper-button-next">
-			<?php \Elementor\Icons_Manager::render_icon( $settings['icon_right'], [ 'aria-hidden' => 'true' ] ); ?>
-		</div>
-    	<div class="swiper-button-prev">
-			<?php \Elementor\Icons_Manager::render_icon( $settings['icon_left'], [ 'aria-hidden' => 'true' ] ); ?>
+		<div class="swiper-slide-nav">
+			<div class="swiper-button-next-testi">
+				<img src="<?php echo esc_url($settings['arrow_left']['url']); ?>" alt="">
+			</div>
+			<div class="swiper-button-prev-testi">
+				<img src="<?php echo esc_url($settings['arrow_right']['url']); ?>" alt="">
+			</div>
 		</div>
 	</div>
-
-	
-
 
 	<?php
 
